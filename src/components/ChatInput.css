@@ -1,0 +1,113 @@
+.chat-input {
+  padding: 16px;
+  border-top: 1px solid #2d3548;
+  background: #0f1419;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.input-wrapper textarea {
+  flex: 1;
+  background: #1a1f2e;
+  border: 1px solid #2d3548;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #e4e7eb;
+  font-size: 14px;
+  font-family: inherit;
+  resize: none;
+  min-height: 44px;
+  max-height: 200px;
+  transition: border-color 0.2s;
+}
+
+.input-wrapper textarea:focus {
+  outline: none;
+  border-color: #4a9eff;
+}
+
+.input-wrapper textarea::placeholder {
+  color: #6b7280;
+}
+
+.mic-button,
+.stop-button,
+.send-button {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 8px;
+  background: #1a1f2e;
+  color: #e4e7eb;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.mic-button:hover,
+.stop-button:hover {
+  background: #2d3548;
+}
+
+.mic-button.recording {
+  background: #ef4444;
+  color: white;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.stop-button {
+  background: #10b981;
+  color: white;
+}
+
+.stop-button:hover {
+  background: #059669;
+}
+
+.send-button {
+  background: #4a9eff;
+  color: white;
+}
+
+.send-button:hover:not(:disabled) {
+  background: #3b82f6;
+}
+
+.send-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #2d3548;
+  border-top-color: #4a9eff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
