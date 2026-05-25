@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Check, Mic, Plus, X } from "lucide-react";
-import { useVoiceRecorder } from "./useVoiceRecorder";
+import { useVoiceRecorder } from "./hooks/useVoiceRecorder";
 import "./VoiceRecorderControl.css";
 
 interface VoiceRecorderControlProps {
@@ -18,6 +18,8 @@ interface VoiceRecorderControlProps {
 const DEFAULT_FOOTNOTE =
   "ChatGPT может допускать ошибки. Рекомендуем проверять важную информацию.";
 
+// UI-обёртка над recorder hook: показывает кнопку запуска,
+// активную панель записи и служебный debug-индикатор языка.
 export const VoiceRecorderControl: React.FC<VoiceRecorderControlProps> = ({
   disabled,
   language,
@@ -65,6 +67,7 @@ export const VoiceRecorderControl: React.FC<VoiceRecorderControlProps> = ({
       return;
     }
 
+    // Горячие клавиши работают только во время активной диктовки.
     const handleKeyDown = (event: KeyboardEvent) => {
       const lowerCaseKey = event.key.toLowerCase();
 
@@ -91,7 +94,7 @@ export const VoiceRecorderControl: React.FC<VoiceRecorderControlProps> = ({
         disabled={disabled || !isSupported || isStarting}
         title={
           !isSupported
-            ? "Голосовой ввод не поддерживается браузером"
+            ? "Голосовой ввод недоступен: нужен совместимый браузер и защищенное соединение"
             : "Начать голосовой ввод"
         }
         type="button"
