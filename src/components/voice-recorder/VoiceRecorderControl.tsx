@@ -12,6 +12,7 @@ interface VoiceRecorderControlProps {
   onRecordingChange?: (isRecording: boolean) => void;
   footerNote?: string;
   leadingAdornment?: React.ReactNode;
+  showResolvedLanguageDebug?: boolean;
 }
 
 const DEFAULT_FOOTNOTE =
@@ -26,6 +27,7 @@ export const VoiceRecorderControl: React.FC<VoiceRecorderControlProps> = ({
   onRecordingChange,
   footerNote,
   leadingAdornment,
+  showResolvedLanguageDebug = false,
 }) => {
   const [helperMessage, setHelperMessage] = useState(
     footerNote ?? DEFAULT_FOOTNOTE,
@@ -37,6 +39,7 @@ export const VoiceRecorderControl: React.FC<VoiceRecorderControlProps> = ({
     isStarting,
     activeAction,
     audioLevels,
+    resolvedLanguage,
     startRecording,
     acceptRecording,
     cancelRecording,
@@ -173,6 +176,12 @@ export const VoiceRecorderControl: React.FC<VoiceRecorderControlProps> = ({
         </div>
       </div>
 
+      {showResolvedLanguageDebug && (
+        <div className="voice-recorder-debug-indicator" aria-live="polite">
+          lang: {resolvedLanguage}
+        </div>
+      )}
+
       <div
         className={[
           "voice-recorder-footnote",
@@ -183,7 +192,7 @@ export const VoiceRecorderControl: React.FC<VoiceRecorderControlProps> = ({
           .filter(Boolean)
           .join(" ")}
       >
-        {helperMessage}
+        {/* {helperMessage} */}
       </div>
     </div>
   );

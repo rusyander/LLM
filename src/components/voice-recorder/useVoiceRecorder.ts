@@ -52,12 +52,14 @@ interface UseVoiceRecorderResult {
   audioLevels: number[];
   transcriptPreview: string;
   durationMs: number;
+  resolvedLanguage: string;
   startRecording: () => Promise<void>;
   acceptRecording: () => Promise<void>;
   cancelRecording: () => Promise<void>;
 }
 
 const DEFAULT_BARS = 128;
+const DEFAULT_LANGUAGE = "ru-RU";
 const BASELINE_LEVEL = 0.085;
 const SILENCE_THRESHOLD = 0.038;
 const CLOSE_ANIMATION_MS = 1600;
@@ -97,8 +99,30 @@ const pushWaveHistory = (previous: number[], nextLevel: number) => {
   return next;
 };
 
+const getSystemLocale = () => {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().locale || null;
+  } catch {
+    return null;
+  }
+};
+
+const getPreferredSpeechLanguage = () => {
+  if (typeof navigator !== "undefined") {
+    const browserLanguage =
+      navigator.languages?.find((value) => !!value?.trim()) ||
+      navigator.language;
+
+    if (browserLanguage?.trim()) {
+      return browserLanguage;
+    }
+  }
+
+  return getSystemLocale() ?? DEFAULT_LANGUAGE;
+};
+
 export const useVoiceRecorder = ({
-  language = "ru-RU",
+  language,
   barsCount = DEFAULT_BARS,
   onAccept,
   onCancel,
@@ -141,6 +165,14 @@ export const useVoiceRecorder = ({
       !!navigator.mediaDevices?.getUserMedia
     );
   }, []);
+
+  const resolvedLanguage = useMemo(() => {
+    if (language?.trim()) {
+      return language;
+    }
+
+    return getPreferredSpeechLanguage();
+  }, [language]);
 
   useEffect(() => {
     onAcceptRef.current = onAccept;
@@ -296,7 +328,7 @@ export const useVoiceRecorder = ({
     const recognition = new Recognition();
     recognition.continuous = true;
     recognition.interimResults = true;
-    recognition.lang = language;
+    recognition.lang = resolvedLanguage;
 
     recognition.onresult = (event) => {
       let nextFinal = finalTranscriptRef.current;
@@ -363,7 +395,7 @@ export const useVoiceRecorder = ({
 
     recognitionRef.current = recognition;
     return recognition;
-  }, [finalizeSession, isSupported, language]);
+  }, [finalizeSession, isSupported, resolvedLanguage]);
 
   const stopWithAction = useCallback(
     async (
@@ -493,6 +525,7 @@ export const useVoiceRecorder = ({
     audioLevels,
     transcriptPreview,
     durationMs,
+    resolvedLanguage,
     startRecording,
     acceptRecording,
     cancelRecording,

@@ -3,6 +3,8 @@ import { Send } from "lucide-react";
 import "./ChatInput.css";
 import { VoiceRecorderControl } from "./voice-recorder";
 
+const SHOW_VOICE_LANGUAGE_DEBUG = true;
+
 interface ChatInputProps {
   onSend: (message: string) => void;
   disabled?: boolean;
@@ -53,9 +55,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, disabled }) => {
         >
           <VoiceRecorderControl
             disabled={disabled}
-            language="ru-RU"
             onAccept={handleVoiceAccept}
             onRecordingChange={setIsVoiceRecording}
+            showResolvedLanguageDebug={SHOW_VOICE_LANGUAGE_DEBUG}
           />
         </div>
 

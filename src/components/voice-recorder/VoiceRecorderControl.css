@@ -197,10 +197,25 @@
   line-height: 1.3;
 }
 
+.voice-recorder-debug-indicator {
+  align-self: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .voice-recorder-footnote--error {
   color: #f2b6b6;
 }
 
+.voice-recorder-shell--accept .voice-recorder-debug-indicator,
+.voice-recorder-shell--cancel .voice-recorder-debug-indicator,
 .voice-recorder-shell--accept .voice-recorder-footnote,
 .voice-recorder-shell--cancel .voice-recorder-footnote {
   animation: voice-recorder-footnote-out 1200ms ease forwards;
