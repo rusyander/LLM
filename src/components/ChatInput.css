@@ -12,6 +12,21 @@
   margin: 0 auto;
 }
 
+.input-wrapper--recording {
+  align-items: stretch;
+}
+
+.voice-recorder-slot {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.voice-recorder-slot--recording {
+  flex: 1;
+  min-width: 0;
+}
+
 .input-wrapper textarea {
   flex: 1;
   background: #1a1f2e;
@@ -36,15 +51,13 @@
   color: #6b7280;
 }
 
-.mic-button,
-.stop-button,
 .send-button {
   width: 44px;
   height: 44px;
   border: none;
-  border-radius: 8px;
-  background: #1a1f2e;
-  color: #e4e7eb;
+  border-radius: 999px;
+  background: #4a9eff;
+  color: #ffffff;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -53,61 +66,16 @@
   flex-shrink: 0;
 }
 
-.mic-button:hover,
-.stop-button:hover {
-  background: #2d3548;
-}
-
-.mic-button.recording {
-  background: #ef4444;
-  color: white;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
-.stop-button {
-  background: #10b981;
-  color: white;
-}
-
-.stop-button:hover {
-  background: #059669;
-}
-
 .send-button {
-  background: #4a9eff;
-  color: white;
+  box-shadow: 0 10px 24px rgba(74, 158, 255, 0.24);
 }
 
 .send-button:hover:not(:disabled) {
   background: #3b82f6;
+  transform: translateY(-1px);
 }
 
 .send-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-.spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #2d3548;
-  border-top-color: #4a9eff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
